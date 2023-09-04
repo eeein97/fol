@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.NoticeMapper">
+<!-- Mapper와 이름 맞춰주기 -->	
+	<insert id="insert">
+		insert into anotice(nno, category, writer, title, content, filename, uploadpath, fullname)
+		values(noti_seq.nextval, #{category}, #{writer}, #{title}, #{content}, #{fileName}, #{uploadPath}, #{fullName})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		insert into anotice(nno, category, writer, title, content, filename, uploadpath, fullname)
+		values(noti_seq.nextval, #{category}, #{writer}, #{title}, #{content}, #{fileName}, #{uploadPath}, #{fullName})
+		<selectKey keyProperty="nno" order="AFTER" resultType="long">
+		select noti_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<select id="read" resultType="org.green.domain.NoticeVO">
+		select * from anotice where nno = #{nno}
+	</select>
+	
+	<delete id="delete">
+		delete from anotice where nno = #{nno}
+	</delete>
+	
+	<update id="update">
+		update anotice set where nno=#{nno}
+	</update>
+	
+	<!-- 1페이지 1-10 / 2페이지 11-20 -->
+	<select id="getListWithPaging" resultType="org.green.domain.NoticeVO">
+	select * from
+	( select Tb.*, rownum rNum from
+	(select * from anotice
+	<trim prefix="where (" suffix=")" prefixOverrides="OR">
+		<if test="typeArr != null">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<if test="type =='T'.toString()">
+						title like '%'||#{keyword}||'%'
+					</if>
+					<choose>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</if>
+	</trim>
+	order by sno desc ) Tb
+	) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} *
+	#{amount}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from anotice <trim prefix="where (" suffix=")" prefixOverrides="OR">
+		<if test="typeArr != null">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</if>
+	</trim>
+	</select>
+
+	<select id="searchTest" resultType="org.green.domain.NoticeVO">
+		select * from anotice
+		<!-- prefix앞에 쿼리추가 suffix 뒤에 쿼리 추가 -->
+		<trim prefix="where">
+			<foreach collection="map" index="key" item="val" separator="or">
+				<if test="key == 'T'.toString()">
+					category like '%'|| #{val} || '%'
+				</if>
+				<if test="key == 'C'.toString()">
+					content like '%'|| #{val} || '%'
+				</if>
+				<if test="key == 'W'.toString()">
+					writer like '%'|| #{val} || '%'
+				</if>
+			</foreach>
+		</trim>
+	</select>
+	
+</mapper>
