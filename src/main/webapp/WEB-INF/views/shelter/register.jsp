@@ -25,8 +25,10 @@
 					<tr>
 						<td>성별</td>
 						<td>
-							<input type="checkbox" name="gender" value="암컷">암컷
-							<input type="checkbox" name="gender" value="수컷">수컷
+							<select name="gender">
+								<option value="수컷">수컷</option>
+								<option value="암컷">암컷</option>
+							</select>
 						</td>
 					</tr>
 					<tr>

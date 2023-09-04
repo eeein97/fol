@@ -5,39 +5,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="UTF-8">
-<title>Animal-Lover</title>
-</head>
-<body>
-<header>
-	<div>
-		<div><a href="/">로고</a></div>
-		<div>
-		<sec:authentication property="principal" var="pinfo" />
-			<ul>
-				<li>
-					<sec:authorize access="isAnonymous()">
-						<a href="/Login">로그인</a>
-						<a href="/member/join">회원가입</a>
-					</sec:authorize>
-				</li>
-				<li>
-					<sec:authorize access="isAuthenticated()">
-						<a href="/Logout">로그아웃</a>
-						<a href="/member/mypage">내 정보</a>
-					</sec:authorize>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<ul>
-				<li><a href="/">소개</a></li>
-				<li><a href="/shelter/list">입양하기</a></li>
-				<li><a href="/review/list">입양후기</a></li>
-				<li><a href="/notice/list">공지사항</a></li>
-			</ul>
-		</div>
-	</div>
+    <meta charset="utf-8">
+    <title>Tea House - Tea Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-</header>
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../resourceslib/animate/animate.min.css" rel="stylesheet">
+    <link href="../resourceslib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../resources/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+    
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+                <a href="index.html" class="navbar-brand">
+                    <img class="img-fluid" src="img/logo.png" alt="Logo">
+                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+	                    <a href="contact.html" class="nav-item nav-link">소개</a>
+	                    <a href="/shelter/list" class="nav-item nav-link">입양하기</a>
+	                    <a href="/review/list" class="nav-item nav-link">입양후기</a>
+	                    <a href="/" class="nav-item nav-link">후원하기</a>
+	                    <a href="/notice/list" class="nav-item nav-link">공지사항</a>
+	                    <sec:authentication property="principal" var="pinfo" />
+							<sec:authorize access="isAnonymous()">
+								<a href="/Login" class="nav-item nav-link">로그인</a>
+								<a href="/member/join" class="nav-item nav-link">회원가입</a>
+							</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a href="/Logout" class="nav-item nav-link">로그아웃</a>
+							<a href="/member/mypage" class="nav-item nav-link">내 정보</a>
+						</sec:authorize>
+                    </div>
+                    <div class="border-start ps-4 d-none d-lg-block">
+                        <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Template Javascript -->
+    <script src="../resources/js/main.js"></script>
