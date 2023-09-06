@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.green.mapper.NoticeMapper">
+<mapper namespace="org.green.mapper.ReviewMapper">
 <!-- Mapper와 이름 맞춰주기 -->	
 	<insert id="insert">
-		insert into anotice(nno, category, writer, title, content, filename, uploadpath, fullname)
-		values(noti_seq.nextval, #{category}, #{writer}, #{title}, #{content}, #{fileName}, #{uploadPath}, #{fullName})
+		insert into Review(rno, writer, title, content, uploadPath, fileName, fullname)
+		values(review_seq.nextval, #{writer}, #{title}, #{content}, #{uploadPath}, #{fileName}, #{fullName})
 	</insert>
 	
 	<insert id="insertSelectKey">
-		insert into anotice(nno, category, writer, title, content, filename, uploadpath, fullname)
-		values(noti_seq.nextval, #{category}, #{writer}, #{title}, #{content}, #{fileName}, #{uploadPath}, #{fullName})
-		<selectKey keyProperty="nno" order="AFTER" resultType="long">
-		select noti_seq.currval from dual
+		insert into Review(rno, writer, title, content, uploadPath, fileName, fullname)
+		values(review_seq.nextval, #{writer}, #{title}, #{content}, #{uploadPath}, #{fileName}, #{fullName})
+		<selectKey keyProperty="rno" order="AFTER" resultType="long">
+		select review_seq.currval from dual
 		</selectKey>
 	</insert>
 	
-	<select id="read" resultType="org.green.domain.NoticeVO">
-		select * from anotice where nno = #{nno}
+	<select id="read" resultType="org.green.domain.ReviewVO">
+		select * from Review where rno = #{rno}
 	</select>
 	
 	<delete id="delete">
-		delete from anotice where nno = #{nno}
+		delete from Review where rno = #{rno}
 	</delete>
 	
 	<update id="update">
-		update anotice set where nno=#{nno}
+		update Review set content=#{content}, uploadPath=#{uploadPath}, fileName=#{fileName}, 
+		fileType=#{fileType}, fullName=#{fullName}, fileType=#{fileType} where rno=#{rno}
 	</update>
 	
 	<!-- 1페이지 1-10 / 2페이지 11-20 -->
-	<select id="getListWithPaging"
-	resultType="org.green.domain.NoticeVO">
+	<select id="getListWithPaging" resultType="org.green.domain.ReviewVO">
 	select * from
 	( select Tb.*, rownum rNum from
-	(select * from anotice
+	(select * from Review
 	<trim prefix="where (" suffix=")" prefixOverrides="OR">
 		<if test="typeArr != null">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
+					<if test="type =='T'.toString()">
+						title like '%'||#{keyword}||'%'
+					</if>
 					<choose>
-						<when test="type =='T'.toString()">
-							title like '%'||#{keyword}||'%'
-						</when>
 						<when test="type == 'C'.toString()">
 							content like '%'||#{keyword}||'%'
 						</when>
@@ -53,11 +53,13 @@
 			</foreach>
 		</if>
 	</trim>
-	order by nno desc ) Tb
-	) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} * #{amount}
-</select>
+	order by rno desc ) Tb
+	) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} *
+	#{amount}
+	</select>
+
 	<select id="getTotalCount" resultType="int">
-		select count(*) from anotice <trim prefix="where (" suffix=")" prefixOverrides="OR">
+		select count(*) from Review <trim prefix="where (" suffix=")" prefixOverrides="OR">
 		<if test="typeArr != null">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
@@ -78,13 +80,13 @@
 	</trim>
 	</select>
 
-	<select id="searchTest" resultType="org.green.domain.NoticeVO">
-		select * from anotice
+	<select id="searchTest" resultType="org.green.domain.ReviewVO">
+		select * from Review
 		<!-- prefix앞에 쿼리추가 suffix 뒤에 쿼리 추가 -->
 		<trim prefix="where">
 			<foreach collection="map" index="key" item="val" separator="or">
 				<if test="key == 'T'.toString()">
-					title like '%'|| #{val} || '%'
+					category like '%'|| #{val} || '%'
 				</if>
 				<if test="key == 'C'.toString()">
 					content like '%'|| #{val} || '%'
@@ -95,4 +97,5 @@
 			</foreach>
 		</trim>
 	</select>
+	
 </mapper>

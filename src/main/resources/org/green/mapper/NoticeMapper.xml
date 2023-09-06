@@ -29,7 +29,8 @@
 	</update>
 	
 	<!-- 1페이지 1-10 / 2페이지 11-20 -->
-	<select id="getListWithPaging" resultType="org.green.domain.NoticeVO">
+	<select id="getListWithPaging"
+	resultType="org.green.domain.NoticeVO">
 	select * from
 	( select Tb.*, rownum rNum from
 	(select * from anotice
@@ -37,10 +38,10 @@
 		<if test="typeArr != null">
 			<foreach collection="typeArr" item="type">
 				<trim prefix="OR">
-					<if test="type =='T'.toString()">
-						title like '%'||#{keyword}||'%'
-					</if>
 					<choose>
+						<when test="type =='T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
 						<when test="type == 'C'.toString()">
 							content like '%'||#{keyword}||'%'
 						</when>
@@ -52,11 +53,9 @@
 			</foreach>
 		</if>
 	</trim>
-	order by sno desc ) Tb
-	) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} *
-	#{amount}
-	</select>
-
+	order by nno desc ) Tb
+	) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} * #{amount}
+</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from anotice <trim prefix="where (" suffix=")" prefixOverrides="OR">
 		<if test="typeArr != null">
@@ -85,7 +84,7 @@
 		<trim prefix="where">
 			<foreach collection="map" index="key" item="val" separator="or">
 				<if test="key == 'T'.toString()">
-					category like '%'|| #{val} || '%'
+					title like '%'|| #{val} || '%'
 				</if>
 				<if test="key == 'C'.toString()">
 					content like '%'|| #{val} || '%'
@@ -96,5 +95,4 @@
 			</foreach>
 		</trim>
 	</select>
-	
 </mapper>

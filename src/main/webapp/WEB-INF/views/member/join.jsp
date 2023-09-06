@@ -5,18 +5,18 @@
 <%@ include file="../includes/header.jsp"%>
 <style type="text/css">
 /* 중복아이디 존재하지 않는경우 */
-.id_input_re_1 {
+.id_input_re_1, .pw_input_re_1 {
 	color: green;
 	display: none;
 }
 /* 중복아이디 존재하는 경우 */
-.id_input_re_2 {
+.id_input_re_2, .pw_input_re_2 {
 	color: red;
 	display: none
 }
 </style>
 
-<h1>회원가입aa</h1>
+<h1>회원가입</h1>
 <form action="/member/join" method="post" name="joinform">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<table>
@@ -54,7 +54,14 @@
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="userpw" /></td>
+			<td><input type="password" name="userpw" id="pw1"/></td>
+		</tr>
+		<tr>
+			<td>비밀번호 확인</td>
+			<td><input type="password" id="pw2" />
+			<span class="pw_input_re_2">비밀번호 불일치</span> 
+			<span class="pw_input_re_1">비밀번호 일치</span>
+		</td>
 		</tr>
 		<tr>
 			<td>이메일</td>
@@ -101,6 +108,7 @@
 
 
 <script>
+
 	//전화번호 하이픈(-)
 	$('input[name=phone]').on("keyup", function() {
 		$(this).val($(this).val().replace(/[^0-9]/g, "")
@@ -159,7 +167,22 @@
 		}
 	});
 	
+	$('#pw2').on("propertychange change keyup paste input", function(){
+		var pw1 = $('#pw1').val();
+		var pw2 = $('#pw2').val();
+		var pwMsg = document.getElementById('pwMsg');	
+		
+		if (pw1 == pw2) {
+			$('.pw_input_re_1').css("display", "inline-block");
+			$('.pw_input_re_2').css("display", "none");
+		} else {
+			$('.pw_input_re_2').css("display", "inline-block");
+			$('.pw_input_re_1').css("display", "none");
+		}
+		
+	})
 
+	
 	//주소 api	
 	function execPostCode() {
 		new daum.Postcode({

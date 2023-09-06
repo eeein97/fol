@@ -14,43 +14,80 @@
 	justify-content: center;
 	align-items: center;
 	color: #fff;
-}
+	}
+	h2 {
+	text-align: center;
+	}
+	table {
+	margin: 0 auto;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+	}
+	table td {
+		width: 150px;
+		height: 40px;
+		border-bottom: 1px solid #ccc;
+	}
 </style>
 </head>
 <body>
 
-	<h1>상세조회 페이지</h1>
+	<h2>상세조회 페이지</h2>
 	<table>
 	
 		<tr>
-			<td><img src="/display?fileName=${shelter.fullName}"/></td>
+			<td colspan="2"><img src="/display?fileName=${shelter.fullName}"/></td>
 		</tr>
 		<tr>
 			<td>[<c:out value="${shelter.category}" />] <!-- 종류 등 --></td>
+			<td>품종</td>
 		</tr>
 		<tr>
-			<td><c:out value="${shelter.gender}" /> / <c:out value="${shelter.color}" /> / <c:out value="${shelter.weight}" /> / <c:out value="${shelter.birth}" /> </td>
+			<td>성별</td> 
+			<td><c:out value="${shelter.gender}" /></td>
 		</tr>
 		<tr>
-			<td>공고기간: <c:out value="${shelter.stperiod}" /> ~ <c:out value="${shelter.endperiod}" /></td>
+			<td>색상</td> 
+			<td><c:out value="${shelter.color}" /></td>
 		</tr>
 		<tr>
-			<td>특이사항: <c:out value="${shelter.content}" /></td>
+			<td>무게</td> 
+			<td><c:out value="${shelter.weight}" /></td>
 		</tr>
 		<tr>
-			<td>보호센터: <c:out value="${shelter.center}" /></td>
+			<td>출생</td> 
+			<td><c:out value="${shelter.birth}" /></td>
 		</tr>
 		<tr>
-			<td>담당부서: <c:out value="${shelter.department}" /></td>
+			<td>공고기간</td>
+			<td><c:out value="${shelter.stperiod}" /> ~ <c:out value="${shelter.endperiod}" /></td>
 		</tr>
 		<tr>
-			<td>발견지역: <c:out value="${shelter.region}" /></td>
+			<td>특이사항</td> 
+			<td><c:out value="${shelter.content}" /></td>
 		</tr>
 		<tr>
-			<td>입양상태: <c:out value="${shelter.state}" /></td>
+			<td>보호센터</td>  
+			<td><c:out value="${shelter.center}" /></td>
 		</tr>
 		<tr>
-			<td>
+			<td>담당부서</td>  
+			<td><c:out value="${shelter.department}" /></td>
+		</tr>
+		<tr>
+			<td>발견지역</td> 
+			<td><c:out value="${shelter.region}" /></td>
+		</tr>
+		<tr>
+			<td>입양상태</td> 
+			<td><c:out value="${shelter.state}" /></td>
+		</tr>
+		<tr>
+			<td colspan="2"><img src="../resources/img/댕냥.jpg"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
 				<input type="button" onclick="location.href='/shelter/list'" value="목록" />
 				<sec:authentication property="principal" var="pinfo" />
 				<sec:authorize access="isAuthenticated()">
@@ -64,11 +101,7 @@
 						</form>
 					</c:if>
 				</sec:authorize>
-			<td>
-		</tr>
-
-		<tr>
-			<td><img src="../resources/img/댕냥.jpg"></td>
+			</td>
 		</tr>	
 	</table>
 	<div class="uploadResult">

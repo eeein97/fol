@@ -51,7 +51,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeVO> getList(Criteria cri) {
-		List<NoticeVO> noticeList = mapper.getList();
+		List<NoticeVO> noticeList = mapper.getListWithPaging(cri);
 		return noticeList;
 	}		
 		

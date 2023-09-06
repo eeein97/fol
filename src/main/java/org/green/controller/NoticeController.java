@@ -1,6 +1,5 @@
 package org.green.controller;
 
-import org.green.domain.AuthVO;
 import org.green.domain.Criteria;
 import org.green.domain.NoticeVO;
 import org.green.domain.PageDTO;
@@ -28,13 +27,14 @@ public class NoticeController {
 	@Setter(onMethod_ = {@Autowired})
 	private NoticeService service;
 
+	//게시글 리스트 list?pageNum=1&amount=10
 	@GetMapping("/list")
-	//Model타입은 view로 데이터를 전달(자동)
 	public void list(Criteria cri, Model model) {
 		model.addAttribute("list",service.getList(cri));
 		int total = service.getTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
+	
 	//게시글 등록 페이지 이동
 	@GetMapping("/register")
 	@PreAuthorize("isAuthenticated()")

@@ -1,5 +1,9 @@
 package org.green.domain;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -16,7 +20,8 @@ public class ShelterVO {
 	private String content;
 	private String center;
 	private String department;
-	private String regdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date regdate;
 	private String region;
 	private String state;
 	private String fileName;
