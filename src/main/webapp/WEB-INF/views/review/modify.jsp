@@ -6,67 +6,14 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<table>
 					<tr>
-						<td>품종</td>
-						<td>
-							<select name="category">
-								<option value="${shelter.category}">${shelter.category}</option>
-								<option value="개">개</option>
-								<option value="고양이">고양이</option>
-							</select>
-						</td>
+						<td>제목</td>
+						<td><input type="text" name="title" ${review.title}"></td>
 					</tr>
 					<tr>
-						<td>성별</td>
-						<td>
-							<input type="checkbox" name="gender" value="암컷">암컷
-							<input type="checkbox" name="gender" value="수컷">수컷
-						</td>
+						<td>내용</td>
+						<td><textarea name="content" ${review.content} required >내용</textarea></td>
 					</tr>
-					<tr>
-						<td>색깔</td>
-						<td><input type="text" name="color" value="${shelter.color}"></td>
-					</tr>
-					<tr>
-						<td>무게</td>
-						<td><input type="text" name="weight" value="${shelter.weight }">kg</td>
-					</tr>
-					<tr>
-						<td>출생</td>
-						<td><input type="text" name="birth" value="${shelter.birth }">년</td>
-					</tr>
-					<tr>
-						<td>공고 시작일</td>
-						<td><input type="date" name="stperiod" value="${shelter.stperiod }" /></td>
-					</tr>
-					<tr>
-						<td>공고 종료일</td>
-						<td><input type="date" name="endperiod" value="${shelter.endperiod }"/></td>
-					</tr>
-					<tr>
-						<td>특이사항</td>
-						<td><textarea name="content" required value="${shelter.content }" ></textarea></td>
-					</tr>
-					<tr>
-						<td>보호기관</td>
-						<td><input type="text" name="center"  value="${shelter.center }"/></td>
-					</tr>
-					<tr>
-						<td>담당부서</td>
-						<td><input type="text" name="department" value="${shelter.department }" /></td>
-						
-					</tr>
-					<tr>
-						<td>발견지역</td>
-						<td><input type="text" name="region" value="${shelter.region }" /></td>
-					</tr>
-					<tr>
-						<td>공고상태</td>
-						<td>
-							<input type="checkbox" name="state" value="입양가능"/>입양가능
-							<input type="checkbox" name="state" value="마감"/>마감
-						</td>
-					</tr>
-				</table>
+				</table>		
 				<!-- 새로 추가되는 부분 -->
 				<div class="panel-heading">사진 첨부</div>
 				<div>
@@ -74,13 +21,13 @@
 				</div>
 				<div class="uploadResult">
 					<ul>
-						<li><img src="/display?fileName=${shelter.fullName}"></li>
+						<li><img src="/display?fileName=${review.fullName}"></li>
 					</ul>
 				</div>
 				
 				<div>	
 					<input type="submit" value="등록" />
-					<input type="reset" value="취소" />
+					<input type="reset" onclick="location.href='/review/list'" value="취소" />
 				</div>
 			</form>
 			
@@ -152,9 +99,6 @@ $(document).ready(function() {
 			data: {fileName: targetFile, type: type},	//post전송시 데이터를 가지고 감
 			dataType: 'text',
 			type:'POST',
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			},
 			success: function(result){
 				alert(result);
 			}

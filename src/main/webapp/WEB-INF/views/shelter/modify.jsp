@@ -152,9 +152,6 @@ $(document).ready(function() {
 			data: {fileName: targetFile, type: type},	//post전송시 데이터를 가지고 감
 			dataType: 'text',
 			type:'POST',
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			},
 			success: function(result){
 				alert(result);
 			}

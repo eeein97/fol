@@ -3,77 +3,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="../includes/header.jsp"%>
 <div>
-	<h1>보호동물 등록페이지</h1>
-			<form class="shelter" method="post" action="/shelter/register">
+	<h1>입양후기등록</h1>
+			<form class="review" method="post" action="/review/register">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="hidden" name="writer" value="<sec:authentication property="principal.username"/>" />
 		
 				<table>
 					<tr>
-						<td>작성자</td>
-						<td><input type="text" name="userid" value="<sec:authentication property="principal.username"/>" readonly required /></td>
+						<td>제목</td>
+						<td><input type="text" name="title"></td>
 					</tr>
 					<tr>
-						<td>품종</td>
-						<td>
-							<select name="category">
-								<option value="개">개</option>
-								<option value="고양이">고양이</option>
-								<option value="기타">기타</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>성별</td>
-						<td>
-							<select name="gender">
-								<option value="수컷">수컷</option>
-								<option value="암컷">암컷</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>색깔</td>
-						<td><input type="text" name="color"></td>
-					</tr>
-					<tr>
-						<td>무게</td>
-						<td><input type="text" name="weight">kg</td>
-					</tr>
-					<tr>
-						<td>출생</td>
-						<td><input type="text" name="birth">년</td>
-					</tr>
-					<tr>
-						<td>공고 시작일</td>
-						<td><input type="date" name="stperiod" /></td>
-					</tr>
-					<tr>
-						<td>공고 종료일</td>
-						<td><input type="date" name="endperiod" /></td>
-					</tr>
-					<tr>
-						<td>특이사항</td>
+						<td>내용</td>
 						<td><textarea name="content" required >내용</textarea></td>
-					</tr>
-					<tr>
-						<td>보호기관</td>
-						<td><input type="text" name="center" /></td>
-					</tr>
-					<tr>
-						<td>담당부서</td>
-						<td><input type="text" name="department" /></td>
-						
-					</tr>
-					<tr>
-						<td>발견지역</td>
-						<td><input type="text" name="region" /></td>
-					</tr>
-					<tr>
-						<td>공고상태</td>
-						<td>
-							<input type="checkbox" name="state" value="입양가능"/>입양가능
-							<input type="checkbox" name="state" value="마감"/>마감
-						</td>
 					</tr>
 				</table>
 				<!-- 새로 추가되는 부분 -->
@@ -87,7 +29,7 @@
 				
 				<div>	
 					<input type="submit" value="등록" />
-					<input type="reset" value="취소" />
+					<input type="reset" onclick="location.href='/review/list'" value="취소" />
 				</div>
 			</form>
 		</div>			
@@ -154,9 +96,6 @@ $(document).ready(function() {
 			data: {fileName: targetFile, type: type},	//post전송시 데이터를 가지고 감
 			dataType: 'text',
 			type:'POST',
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			},
 			success: function(result){
 				alert(result);
 			}
@@ -169,7 +108,7 @@ $(document).ready(function() {
 		//연결된 이벤트 제거 (submit전송 제거)
 		e.preventDefault();
 		//폼선택 formObj에 할당
-		let formObj = $("form.shelter");
+		let formObj = $("form.review");
 		console.log("submit클릭");
 		let str ="";
 		let li = $(".uploadResult ul li");

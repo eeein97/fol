@@ -4,12 +4,12 @@
 <mapper namespace="org.green.mapper.ReviewMapper">
 <!-- Mapper와 이름 맞춰주기 -->	
 	<insert id="insert">
-		insert into Review(rno, writer, title, content, uploadPath, fileName, fullname)
+		insert into review(rno, writer, title, content, uploadPath, fileName, fullname)
 		values(review_seq.nextval, #{writer}, #{title}, #{content}, #{uploadPath}, #{fileName}, #{fullName})
 	</insert>
 	
 	<insert id="insertSelectKey">
-		insert into Review(rno, writer, title, content, uploadPath, fileName, fullname)
+		insert into review(rno, writer, title, content, uploadPath, fileName, fullname)
 		values(review_seq.nextval, #{writer}, #{title}, #{content}, #{uploadPath}, #{fileName}, #{fullName})
 		<selectKey keyProperty="rno" order="AFTER" resultType="long">
 		select review_seq.currval from dual

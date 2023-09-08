@@ -106,4 +106,5 @@
 			</c:if>
 		</sec:authorize>
 </div>
+
 <%@ include file="../includes/footer.jsp"%>

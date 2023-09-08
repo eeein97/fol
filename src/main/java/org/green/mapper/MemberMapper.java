@@ -6,6 +6,8 @@ import org.green.domain.MemberVO;
 
 public interface MemberMapper {
 	public MemberVO read(String userid);
+	
+	public MemberVO myInfo(String userid);
 	//등록
 	public void insert(MemberVO member);
 	//아이디 중복 확인

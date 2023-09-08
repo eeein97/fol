@@ -17,40 +17,28 @@
 	<h1>상세조회 페이지</h1>
 	<table>
 		<tr>
-			<td><c:out value="${notice.nno}" /></td>
+			<td><h3><c:out value="${review.title}" /></h3></td>
 		</tr>
 		<tr>
-			<td><c:out value="${notice.category}" /></td>
+			<td><img src="/display?fileName=${review.fullName}"/></td>
 		</tr>
 		<tr>
-			<td><c:out value="${notice.writer}" /></td>
+			<td><c:out value="${review.writer}" /> / <fmt:formatDate value="${review.regdate}" pattern="yyyy.MM.dd." /></td>
 		</tr>
 		<tr>
-			<td><c:out value="${notice.title}" /></td>
-		</tr>
-		
-		<c:if test="${not empty notice.fullName}">
-			<tr>
-				<td><img src="/display?fileName=${notice.fullName}"/></td>
-			</tr>
-		</c:if>
-		<tr>
-			<td><c:out value="${notice.content}" /></td>
-		</tr>
-		<tr>
-			<td><c:out value="${notice.regdate}" /></td>
+			<td><c:out value="${review.content}" /></td>
 		</tr>
 		<tr>
 			<td>
-				<input type="button" onclick="location.href='/notice/list'" value="목록" />
+				<input type="button" onclick="location.href='/review/list'" value="목록" />
 				<sec:authentication property="principal" var="pinfo" />
 				<sec:authorize access="isAuthenticated()">
 					<!-- 로그인한 사용자랑 글쓴이랑 같아야함 -->
 					<c:if test="${pinfo.username eq 'admin'}">
-						<button onclick="location.href='/notice/modify?nno=${notice.nno}'">수정</button>
-						<form method="post" action="/notice/remove">
+						<button onclick="location.href='/review/modify?nno=${notice.nno}'">수정</button>
+						<form method="post" action="/review/remove">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							<input type="hidden" value="${notice.nno}" name="nno" />
+							<input type="hidden" value="${review.rno}" name="rno" />
 							<button type="submit">삭제</button>
 						</form>
 					</c:if>

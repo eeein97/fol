@@ -14,5 +14,7 @@ public interface MemberService {
 	public int idCheck(String userid);
 	//Ε»Επ
 	public void remove(String userid);
+	//³»Α€ΊΈ
+	public MemberVO getMy(String userid);
 	
 }

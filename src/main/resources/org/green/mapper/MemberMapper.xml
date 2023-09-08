@@ -34,5 +34,8 @@
   	<delete id="delete">
 		delete from l_member where userid = #{userid}
 	</delete>
+	<select id="myInfo" resultType="org.green.domain.MemberVO">
+		select * from l_member where userid = #{userid}
+	</select>
   
 </mapper>

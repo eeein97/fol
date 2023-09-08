@@ -46,28 +46,29 @@
     <div class="container-fluid bg-white sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-                <h1><a href="/"> ANIFOR </a></h1>
+                <h1><a href="/"> ANIFOR♥ </a></h1>
                 <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-	                    <a href="contact.html" class="nav-item nav-link">소개</a>
+	                    <a href="/introduce" class="nav-item nav-link">소개</a>
 	                    <a href="/shelter/list" class="nav-item nav-link">입양하기</a>
 	                    <a href="/review/list" class="nav-item nav-link">입양후기</a>
-	                    <a href="/" class="nav-item nav-link">후원하기</a>
+	                    <a href="/support/list" class="nav-item nav-link">후원하기</a>
 	                    <a href="/notice/list" class="nav-item nav-link">공지사항</a>
 	                    <sec:authentication property="principal" var="pinfo" />
 						<sec:authorize access="isAnonymous()">
 							<a href="/Login" class="nav-item nav-link">로그인</a>
 							<a href="/member/join" class="nav-item nav-link">회원가입</a>
 						</sec:authorize>
+						<sec:authentication property="principal" var="pinfo" />
 						<sec:authorize access="isAuthenticated()">
 							<form action="/Logout" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<button class="nav-item nav-link">로그아웃</button>
 							</form>
-							<a href="/member/mypage" class="nav-item nav-link">내 정보</a>
+							<a href="/member/mypage?userid=${pinfo.username}" class="nav-item nav-link">내 정보</a>
 						</sec:authorize>
                     </div>
                 </div>

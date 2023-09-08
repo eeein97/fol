@@ -169,6 +169,8 @@ public class UploadController {
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
 		log.info("deleteFile : " + fileName);
+		log.info("파일삭제");
+		
 		File file;
 		try {
 			file = new File("C:\\upload\\"+ URLDecoder.decode(fileName,"UTF-8"));
