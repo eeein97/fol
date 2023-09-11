@@ -55,4 +55,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return mapper.getTotalCount(cri);
 	}
 
+	//내가 쓴글 목록
+	@Override
+	public List<ReviewVO> myList(Criteria cri) {
+		return mapper.myListWithPaging(cri);
+	}
+
 }

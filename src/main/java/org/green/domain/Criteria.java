@@ -12,6 +12,8 @@ public class Criteria {
 	private int amount;
 	private String type;
 	private String keyword;
+	private String writer;
+	private String userid;
 	
 	//생성자를 통해서 기본값 1페이지, 10개로 지정
 	public Criteria() {

@@ -1,5 +1,6 @@
 package org.green.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.green.domain.Criteria;
 import org.green.domain.PageDTO;
 import org.green.domain.ReviewVO;
@@ -30,6 +31,17 @@ public class ReviewController {
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
 		model.addAttribute("list",service.getList(cri));
+		int total = service.getTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+	}
+	
+	//내가 쓴글 목록
+	@GetMapping("/myList")
+	public void myList(Criteria cri, Model model) {
+		log.info("====================================="); 
+		log.info(cri);
+		log.info("=====================================");
+		model.addAttribute("list",service.myList(cri));
 		int total = service.getTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}

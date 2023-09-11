@@ -104,10 +104,16 @@
 			</td>
 		</tr>	
 	</table>
+	
+	<form method="post" action="/check/add">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" value="${shelter.sno}" name="sno" />
+		<button type="submit">예약하기</button>
+	</form>
 	<div class="uploadResult">
-					<ul>
-					</ul>
-				</div>
+		<ul>
+		</ul>
+	</div>
 	
 	<script>
 		$(document).ready(function() {

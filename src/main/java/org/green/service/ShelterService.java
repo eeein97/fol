@@ -17,6 +17,8 @@ public interface ShelterService {
 	public List<ShelterVO> getList(Criteria cri);
 	//게시글 개수 조회
 	public int getTotal(Criteria cri);
+	
+	public List<ShelterVO> myShelList(Criteria cri);
 
 }
 

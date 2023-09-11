@@ -124,7 +124,6 @@
 		var data = {
 			"userid" : userid
 		}
-		console.log(userid + "123ss");
 		$.ajax({
 			type : 'POST',
 			url : '/member/memberIdChk',

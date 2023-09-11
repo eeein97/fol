@@ -24,6 +24,9 @@ public interface ShelterMapper {
 	
 	public int update(ShelterVO svo);
 
+	//예약목록 보기
+	public List<ShelterVO> myChListWithPaging(Criteria cri);
+
 	//페이징 사용해서 조회
 	public List<ShelterVO> getListWithPaging(Criteria cri);
 

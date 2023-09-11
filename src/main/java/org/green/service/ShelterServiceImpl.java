@@ -53,4 +53,10 @@ public class ShelterServiceImpl implements ShelterService{
 			return mapper.getTotalCount(cri);
 		}
 
+		@Override
+		public List<ShelterVO> myShelList(Criteria cri) {
+			// TODO Auto-generated method stub
+			return mapper.myChListWithPaging(cri);
+		}
+
 	}

@@ -17,6 +17,8 @@ public interface ReviewService {
 	public List<ReviewVO> getList(Criteria cri);
 	//게시글 개수 조회
 	public int getTotal(Criteria cri);
+	//내가쓴 글 조회(마이페이지)
+	public List<ReviewVO> myList(Criteria cri);
 
 }
 

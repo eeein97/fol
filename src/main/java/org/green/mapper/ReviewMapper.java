@@ -19,7 +19,10 @@ public interface ReviewMapper {
 
 	
 	public int delete(Long rno);
-
+	
+	//내가 쓴글 조회
+	public List<ReviewVO> myListWithPaging(Criteria cri);
+	
 	
 	public int update(ReviewVO rvo);
 
@@ -35,4 +38,5 @@ public interface ReviewMapper {
 	//검색 연습
 	//Map <키: 스트링, 값: map타입>
 	public List<ReviewVO> searchTest(Map<String, Map<String,String>> map);
+
 }

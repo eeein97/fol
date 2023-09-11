@@ -46,7 +46,7 @@
     <div class="container-fluid bg-white sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
-                <h1><a href="/"> ANIFOR♥ </a></h1>
+                <h1><a href="/"> ANIFOR </a></h1>
                 <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -55,7 +55,6 @@
 	                    <a href="/introduce" class="nav-item nav-link">소개</a>
 	                    <a href="/shelter/list" class="nav-item nav-link">입양하기</a>
 	                    <a href="/review/list" class="nav-item nav-link">입양후기</a>
-	                    <a href="/support/list" class="nav-item nav-link">후원하기</a>
 	                    <a href="/notice/list" class="nav-item nav-link">공지사항</a>
 	                    <sec:authentication property="principal" var="pinfo" />
 						<sec:authorize access="isAnonymous()">
