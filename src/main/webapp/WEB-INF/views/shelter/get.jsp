@@ -94,22 +94,18 @@
 					<!-- 로그인한 사용자랑 글쓴이랑 같아야함 -->
 					<c:if test="${pinfo.username eq shelter.userid}">
 						<button onclick="location.href='/shelter/modify?sno=${shelter.sno}'">수정</button>
+						
 						<form method="post" action="/shelter/remove">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type="hidden" value="${shelter.sno}" name="sno" />
 							<button type="submit">삭제</button>
 						</form>
 					</c:if>
+					<button onclick="location.href='/shelter/add?sno=${shelter.sno}&userid=${pinfo.username}&fileName=${shelter.fullName}'">예약</button>
 				</sec:authorize>
 			</td>
 		</tr>	
 	</table>
-	
-	<form method="post" action="/check/add">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<input type="hidden" value="${shelter.sno}" name="sno" />
-		<button type="submit">예약하기</button>
-	</form>
 	<div class="uploadResult">
 		<ul>
 		</ul>

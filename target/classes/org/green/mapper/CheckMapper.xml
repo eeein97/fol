@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.mapper.CheckMapper">
+	<insert id="insert">
+		insert into shel_check(CNO, CHNO, USERID, USERNAME, PHONE, CHDATE, CHTIME)
+		values(check_seq.nextval, #{chno}, #{userId}, #{userName}, #{phone}, #{chdate}, #{chtime})
+	</insert>
+	<select id="read" resultType="org.green.domain.CheckVO">
+		select * from shel_check where cno=#{cno}
+	</select>
+	
+	<select id="myCheckWithPaging" resultType="org.green.domain.CheckVO">
+		select * from
+		( select Tb.*, rownum rNum from
+		(select * from shel_check
+		order by cno desc) Tb
+		) where rNum between (#{pageNum}-1) * #{amount}+1 and #{pageNum} *
+		#{amount}
+	</select>
+</mapper>

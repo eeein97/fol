@@ -29,6 +29,10 @@
 		fileType=#{fileType}, fullName=#{fullName}, fileType=#{fileType} where rno=#{rno}
 	</update>
 	
+	<select id="homeReview">
+		select * from review where rownum <![CDATA[<=]]> 3 order by regdate desc
+	</select>
+	
 	<!-- 1페이지 1-10 / 2페이지 11-20 -->
 	<select id="getListWithPaging" resultType="org.green.domain.ReviewVO">
 	select * from

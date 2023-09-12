@@ -1,6 +1,8 @@
 package org.green.service;
 
 import java.util.List;
+
+import org.green.domain.CheckVO;
 import org.green.domain.Criteria;
 import org.green.domain.ShelterVO;
 
@@ -18,7 +20,10 @@ public interface ShelterService {
 	//게시글 개수 조회
 	public int getTotal(Criteria cri);
 	
-	public List<ShelterVO> myShelList(Criteria cri);
-
+	public List<CheckVO> myShelList(Criteria cri);
+	
+	public void check(CheckVO cvo);
+	
+	public CheckVO chget(Long cno);
 }
 

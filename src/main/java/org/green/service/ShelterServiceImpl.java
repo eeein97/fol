@@ -2,8 +2,10 @@ package org.green.service;
 
 import java.util.List;
 
+import org.green.domain.CheckVO;
 import org.green.domain.Criteria;
 import org.green.domain.ShelterVO;
+import org.green.mapper.CheckMapper;
 import org.green.mapper.ShelterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,10 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class ShelterServiceImpl implements ShelterService{
 	@Setter(onMethod_= {@Autowired})
-	private ShelterMapper mapper;		
+	private ShelterMapper mapper;	
+	
+	@Setter(onMethod_= {@Autowired})
+	private CheckMapper chmapper;	
 	
 		@Override
 		public void register(ShelterVO svo) {
@@ -54,9 +59,21 @@ public class ShelterServiceImpl implements ShelterService{
 		}
 
 		@Override
-		public List<ShelterVO> myShelList(Criteria cri) {
+		public List<CheckVO> myShelList(Criteria cri) {
 			// TODO Auto-generated method stub
-			return mapper.myChListWithPaging(cri);
+			return chmapper.myCheckWithPaging(cri);
+		}
+
+		@Override
+		public void check(CheckVO cvo) {
+			chmapper.insert(cvo);
+			System.out.println("cno : "+cvo.getChno());
+			
+		}
+
+		@Override
+		public CheckVO chget(Long cno) {
+			return chmapper.read(cno);
 		}
 
 	}

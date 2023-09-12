@@ -1,20 +1,19 @@
 package org.green.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import org.green.domain.CheckVO;
 import org.green.domain.Criteria;
 import org.green.domain.PageDTO;
 import org.green.domain.ShelterVO;
+import org.green.service.MemberService;
 import org.green.service.ShelterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -36,8 +34,9 @@ public class ShelterController {
 	@Setter(onMethod_ = {@Autowired})
 	private ShelterService service;
 	
-//	@Setter(onMethod_ = {@Autowired})
-//	private checkService chservice;
+	@Setter(onMethod_ = {@Autowired})
+	private MemberService memService;
+	
 	
 	@GetMapping("/list")
 	//Model타입은 view로 데이터를 전달(자동)
@@ -47,6 +46,7 @@ public class ShelterController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
+	//내 예약목록
 	@GetMapping("/myList")
 	//Model타입은 view로 데이터를 전달(자동)
 	public void myList(Criteria cri, Model model) {
@@ -104,39 +104,31 @@ public class ShelterController {
 		return "redirect:/shelter/list";
 	}
 	
-	
-	//예약하기로 이동
-	@GetMapping("/add")
-	@PreAuthorize("isAuthenticated()")
-	public void add() {
-		
-	}
+	//예약하기
+	 @GetMapping("/add")
+	 @PreAuthorize("isAuthenticated()")
+	  public void getMyInfo(@RequestParam("userid") String userid, @RequestParam("sno") Long sno, Model model){
+		 model.addAttribute("myInfo", memService.getMy(userid));
+		 model.addAttribute("shelter", service.get(sno));
+	 }
+	 
 	//예약하기
 	@PostMapping("/add")
 	@PreAuthorize("isAuthenticated()")
-	public String add(ShelterVO svo, RedirectAttributes rttr) {
+	public String add(CheckVO cvo, RedirectAttributes rttr) {
 		log.info("=============================");
-		log.info("register : " + svo);
+		log.info("예약하기 : " + cvo);
 		log.info("=============================");
-		service.register(svo);
-		rttr.addAttribute("result", svo.getSno());
-		return "redirect:/shelter/list";
+		service.check(cvo);
+		rttr.addAttribute("chno", cvo.getChno());
+		return "redirect:/shelter/checkEnd";
 	}
-	//예약 중복 검사
-	@RequestMapping(value = "/chAdd", method = RequestMethod.POST)
-	@ResponseBody
-	public String chAdd(String chdate, String chtime){
-		log.info("chADd() 진입 "+ chdate + chtime);
-//		int result = service.chDate(chdate);
-//		log.info("결과값 = " + result);
-//		if(result != 0) {
-//			return "fail";	// 중복 아이디가 존재
-//		} else {
-			return "success";	// 중복 아이디 x
-
-			
-
-	} // memberIdChkPOST() 종료
+	//예약 확인
+	 @GetMapping("/checkEnd")
+	 @PreAuthorize("isAuthenticated()")
+	  public void checkEnd(){
+		
+	 }
 	
 	//파일삭제 메소드
 	private void deleteFile(String uploadPath, String fileName) {

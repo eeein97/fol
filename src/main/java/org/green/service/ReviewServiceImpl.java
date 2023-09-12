@@ -61,4 +61,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return mapper.myListWithPaging(cri);
 	}
 
+	@Override
+	public List<ReviewVO> homeList(ReviewVO rvo) {
+		return mapper.homeReview(rvo);
+	}
+
 }

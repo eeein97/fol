@@ -39,4 +39,7 @@ public interface ReviewMapper {
 	//Map <키: 스트링, 값: map타입>
 	public List<ReviewVO> searchTest(Map<String, Map<String,String>> map);
 
+	//home리뷰
+	public List<ReviewVO> homeReview(ReviewVO rvo);
+
 }

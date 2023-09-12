@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+
 <sec:authentication property="principal" var="pinfo" />
 	<sec:authorize access="isAuthenticated()">
 		<c:if test="${pinfo.username ne pageMaker.cri.writer}">
